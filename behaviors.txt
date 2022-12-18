@@ -1,0 +1,35 @@
+//  Made by Troy A. Hamilton (12/18/2022)
+//  No guarantees offered. Constructive comments to wmmmwd@gmail.com
+
+TtcpServer:: class
+this class will have a simple task
+
+TtcpServer server; // just makes an object, nothing happens
+
+server.waitForAClient(1111); // will wait for a client on a specific port number,
+// then returns the file descriptor for the socket that connects.
+// is a blocking call.
+
+example{
+
+TtcpServer server;
+
+for(;;)
+    sayHi(server.waitForAClient(1111));
+
+this example makes a server instance, then everytime a client connects to the
+server on port number 1111 and the fildes is returned, the sayHi function can
+do something to that fildes.
+}
+
+Behavior:
+
+The server will listen on its specified port number, then return the int
+file descriptor of the client connection.
+
+If the port number is changed, such as calling waitForAClient with a different
+argument value, then the prior file descriptor is closed, and any connection
+using that file descriptor is terminated. Then the server effectively
+switches to operate using the new port number.
+
+If the argument is 0, then the socket will be cleaned and -1 will be returned.
